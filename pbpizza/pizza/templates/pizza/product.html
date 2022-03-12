@@ -1,0 +1,15 @@
+
+{% extends 'pizza/base.html' %}
+
+{% block content %}
+
+
+<h1> {{ products.name_product }} </h1>
+<div>
+<img src="{{ products.photo.url }}" class="card-img-top" alt="{{ products.name_product }}" height='100px' width="100px">
+
+{{ products.description }}
+<h3>{{ products.base_price }} руб </h3>
+</div>
+
+{% endblock %}

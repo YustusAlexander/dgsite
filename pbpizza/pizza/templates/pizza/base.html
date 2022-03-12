@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{title}} </title>
+    <link type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/basic.css' %}" rel="stylesheet" />
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+
+<div class="container">
+
+<div align="right">
+    <span class="navbar-text">
+        {% if request.user.is_authenticated %}
+    Добро пожаловать, 🙎 {{ user.username }} |
+    <a href="{% url 'user_logout' %}"> Выход </a>
+        {% else %}
+    <a href="{% url 'register' %}">Регистрация</a> |
+    <a href="{% url 'user_login' %}">Авторизация</a>
+        {% endif %}
+    </span>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark  bg-dark sticky-top ">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            🍕 Pizza Club
+        </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+
+{% block main_menu %}
+    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="&#45;&#45;bs-scroll-height: 100px;">
+        {% for c in categories %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ c.get_absolute_url }}">
+                    {{c.name_category}}
+                </a> </li>
+        {% endfor %}
+    </ul>
+ {% endblock %}
+
+   <span class="navbar-text">
+    <a href="{% url 'basket' %}" class="btn btn-primary">Корзина</a>
+
+    </span>
+
+       </div>
+  </div>
+</nav>
+
+
+
+
+
+
+{% block content %}
+{% endblock %}
+
+
+ </div>
+
+</body>
+</html>

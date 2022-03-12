@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ name }} </title>
+ <ul>
+    {% for i in mod %}
+   <li> <h1> <a href="{{ i.get_absolute_url }}"> {{ i.title }} </a> - {{ i.number }}   </h1></li>
+     <img src="{{ i.photo.url }}">
+  {% endfor %}
+
+     </ul>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{title}} </title>
+    <link type="text/css" href="{% static 'shop/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <script src="{% static 'shop/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+
+<div class="container-lg">
+
+
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-2">
+
+
+
+{% block main_menu %}
+    <ul>
+        <b> Menu: </b>
+    {% for i in menu %}
+        <li> <a href="{% url i.url_name %}"> {{i.title}} </a> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+
+     </div>
+    <div class="col col-lg-8">
+
+{% block content %}
+{% endblock %}
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
