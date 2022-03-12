@@ -9,7 +9,7 @@ class Product(models.Model):
     base_price = models.DecimalField(max_digits=4, decimal_places=0, verbose_name='Базовая цена')
     description = models.TextField(blank=True, verbose_name='Описание товара')
     components = models.CharField(max_length=255, verbose_name='Состав')
-    size = models.CharField(max_length=50, verbose_name='Size')
+    # size = models.CharField(max_length=50, verbose_name='Size')
     photo = models.ImageField(upload_to="photo/", verbose_name='Фото', null=True, blank=True)
 
     def get_absolute_url(self):

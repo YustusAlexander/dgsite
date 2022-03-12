@@ -18,7 +18,7 @@ def register(request):
     else:
         form = UserRegisterForm()
     context = {'form': form}
-    return render(request, 'pizza/register.html', context=context)
+    return render(request, 'pizza/register.html', context)
 
 def user_login(request):
     if request.method == 'POST':
@@ -42,20 +42,20 @@ def home(request):
     categories = Category.objects.all()
     products = Product.objects.all()
     context = {'categories': categories, 'products': products, }
-    return render(request, 'pizza/index.html', context=context)
+    return render(request, 'pizza/index.html', context)
 
 def choose_product(request, slug_prod):
     products = get_object_or_404(Product, slug=slug_prod)
     categories = Category.objects.all()
     context = {'categories': categories, 'products': products, }
-    return render(request, 'pizza/product.html', context=context)
+    return render(request, 'pizza/product.html', context)
 
 
 def show_category(request, category_id):
     categories = Category.objects.all()
     products = Product.objects.filter(category=category_id)
     context = {'categories': categories, 'products': products}
-    return render(request, 'pizza/index.html', context=context)
+    return render(request, 'pizza/index.html', context)
 
 
 

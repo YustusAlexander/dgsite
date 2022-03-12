@@ -12,4 +12,6 @@ urlpatterns = [
     path('<int:category_id>/', show_category, name='cat'),
     path('<slug:slug_prod>/', choose_product, name='slug_name_prod'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+ # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

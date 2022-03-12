@@ -17,11 +17,11 @@
 <div align="right">
     <span class="navbar-text">
         {% if request.user.is_authenticated %}
-    Добро пожаловать, 🙎 {{ user.username }} |
-    <a href="{% url 'user_logout' %}"> Выход </a>
-        {% else %}
-    <a href="{% url 'register' %}">Регистрация</a> |
-    <a href="{% url 'user_login' %}">Авторизация</a>
+            Добро пожаловать, {{ user.username }} |
+            <a href="{% url 'user_logout' %}"> Выход </a>
+                {% else %}
+            <a href="{% url 'register' %}">Регистрация</a> |
+            <a href="{% url 'user_login' %}">Авторизация</a>
         {% endif %}
     </span>
 </div>
