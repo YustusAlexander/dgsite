@@ -1,0 +1,177 @@
+{% extends 'pizza/base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+
+
+<div class="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-coolGray-900 dark:text-coolGray-100">
+	<h2 class="text-xl font-semibold">Your cart</h2>
+	<ul class="flex flex-col divide-y divide-coolGray-700">
+
+		{% for i in order.items.all  %}
+		<li class="flex flex-col py-6 sm:flex-row sm:justify-between">
+			<div class="flex w-full space-x-2 sm:space-x-4">
+				<img class="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-coolGray-500"
+					 src="" alt="..">
+				<div class="flex flex-col justify-between w-full pb-4">
+					<div class="flex justify-between w-full pb-2 space-x-2">
+						<div class="space-y-1">
+							<h3 class="text-lg font-semibold leading-snug sm:pr-8"> {{ i.item.name_product }}  </h3>
+							<h4 class="text-sm dark:text-coolGray-400"> {{ i.quantity  }} шт  </h4>
+							<p class="text-sm dark:text-coolGray-400"> {{ i.item.description }} </p>
+						</div>
+						<div class="text-right">
+							<p class="text-lg font-semibold"> {{ i.item.base_price }} руб. </p>
+
+						</div>
+					</div>
+					<div class="flex text-sm divide-x">
+
+						<a href="{{ i.item.get_remove_from_cart_url }}">
+
+						<button type="button" class="flex items-center px-2 py-1 pl-0 space-x-1">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 fill-current">
+								<path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
+								<rect width="32" height="200" x="168" y="216"></rect>
+								<rect width="32" height="200" x="240" y="216"></rect>
+								<rect width="32" height="200" x="312" y="216"></rect>
+								<path d="M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z"></path>
+							</svg>
+							<span>Remove</span>
+						</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</li>
+
+	{% endfor %}
+
+	<!--########################################## -->
+<!--		{% if order.coupon %}-->
+<!--    <li class="list-group-item d-flex justify-content-between bg-light">-->
+<!--        <div class="text-success">-->
+<!--        <h6 class="my-0">Promo code</h6>-->
+<!--        <small>{{ order.coupon.code }}</small>-->
+<!--        </div>-->
+<!--        <span class="text-success">-${{ order.coupon.amount }}</span>-->
+<!--    </li>-->
+<!--    {% endif %}-->
+<!--    <li class="list-group-item d-flex justify-content-between">-->
+<!--        <span>Total (USD)</span>-->
+<!--        <strong>${{ order.get_total }}</strong>-->
+<!--    </li>-->
+<!--    </ul>-->
+
+<!--    {% if DISPLAY_COUPON_FORM %}-->
+<!--    <form class="card p-2" action="{% url 'core:add-coupon' %}" method="POST">-->
+<!--        {% csrf_token %}-->
+<!--        <div class="input-group">-->
+<!--            {{ couponform.code }}-->
+<!--            <div class="input-group-append">-->
+<!--            <button class="btn btn-secondary btn-md waves-effect m-0" type="submit">Redeem</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    {% endif %}-->
+
+	</ul>
+	<div class="space-y-1 text-right">
+		<p>Total quantity:
+			<span class="font-semibold"> {{ order.get_cart_items }} </span>
+		</p>
+		<p>Total cost:
+			<span class="font-semibold"> {{ order.get_cart_total }} руб.  </span>
+		</p>
+	</div>
+	<div class="flex justify-end space-x-4">
+		<a href="{% url 'home' %}"> <button type="button" class="px-6 py-2 border rounded-md dark:border-violet-400">
+			Вернуться в магазин </button>  </a>
+		<a href="{{ order.get_check_order_url }}"> <button type="button" class="px-6 py-2 border rounded-md dark:border-violet-400">
+			Подтвердить заказ </button>  </a>
+	</div>
+</div>
+</div>
+
+<!--########################################## -->
+<hr>
+<b>Альтернативный вид</b>
+<hr>
+
+ <main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h1>Order Summary</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_item in order.items.all  %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ order_item.item.name_product }}</td>
+            <td>{{ order_item.item.base_price }}</td>
+            <td>
+                <a href="{% url 'remove-single-item-from-cart' order_item.item.slug %}"> - </a>
+                {{ order_item.quantity }}
+                <a href="{% url 'add-to-cart' order_item.item.slug %}">	+ </a>
+            </td>
+            <td>
+                {{ order_item.get_total }} руб.
+            <a href="{% url 'remove-from-cart' order_item.item.slug %}" class="float-right">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 fill-current">
+							<path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
+							<rect width="32" height="200" x="168" y="216"></rect>
+							<rect width="32" height="200" x="240" y="216"></rect>
+							<rect width="32" height="200" x="312" y="216"></rect>
+							<path d="M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z"></path>
+						</svg>
+            </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan='5'>Your cart is empty</td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+        {% if order.get_cart_total %}
+        <tr>
+            <td colspan="4"><b>Order Total</b></td>
+            <td><b>{{ order.get_cart_total }} руб.</b></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+
+
+
+
+{% endblock %}

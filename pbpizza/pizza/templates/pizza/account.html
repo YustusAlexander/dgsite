@@ -1,0 +1,52 @@
+{% extends 'pizza/base.html' %}
+
+{% block content %}
+
+ <main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h1>Orders</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">№ заказа</th>
+            <th scope="col">Время заказа</th>
+            <th scope="col">Состав заказа</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Способ получения</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders  %}
+        <tr>
+            <th scope="row">{{ order.id }}</th>
+            <td>{{ order.ordered_date }}</td>
+            <td> {{ orders.items }} </td>
+            <td>{{ order.get_cart_total }} руб.</td>
+            <td>{{ order.status }}  </td>
+            <td>{{ order.delivery }} </td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan='5'>Your order is empty</td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+
+
+
+
+{% endblock %}

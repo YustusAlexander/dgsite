@@ -8,14 +8,14 @@
 {% for p in products %}
   <div class="col">
     <div class="card ">
-      <img src="{{ p.photo.url }}" class="card-img-top" alt="{{ p.name_product }}" >
+      <img src="" class="card-img-top" alt="{{ p.name_product }}" >
       <div class="card-body">
         <a href="{{ p.get_absolute_url }}">
         <h5 class="card-title"> {{ p.name_product }} </h5>
            </a>
         <p class="card-text"> {{ p.description|truncatewords:10|truncatechars:40 }} </p>
         <p class="card-text"> {{ p.base_price }} руб. </p>
-        <a href="##" class="btn btn-primary"> В корзину </a>
+        <a href="{{ p.get_add_to_cart_url }}" class="btn btn-primary"> В корзину </a>
       </div>
     </div>
 
