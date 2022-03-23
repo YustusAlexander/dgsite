@@ -61,11 +61,14 @@ class Order(models.Model):
     def get_cart_total(self):
         order_items = self.items.all()
         total = sum([item.get_total for item in order_items])
+        if self.coupon:
+            total -= self.coupon.amount
         return total
     @property
     def get_cart_items(self):
         order_items = self.items.all()
         total = sum([item.quantity for item in order_items])
+
         return total
 
     @property
@@ -74,7 +77,7 @@ class Order(models.Model):
 
 class Coupon(models.Model):
     code = models.CharField(max_length=15)
-    amount = models.FloatField()
+    amount = models.DecimalField(max_digits=4, decimal_places=0)
     def __str__(self):
         return self.code
 

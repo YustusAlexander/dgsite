@@ -3,6 +3,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    path('add-coupon/', AddCouponView.as_view(), name='add-coupon'),
     path('customer_account/', get_account, name='customer_account'),
     path('cart/', Cart.as_view(), name='cart'),
     path('check_order/', check_order, name='check_order'),
@@ -15,9 +16,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', user_login, name='user_login'),
     path('logout/', user_logout, name='user_logout'),
-    # path('add-coupon/', AddCouponView.as_view(), name='add-coupon'),
-
-
 
 ]
 

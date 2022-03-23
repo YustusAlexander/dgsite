@@ -17,6 +17,7 @@ admin.site.register(Item, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(Coupon)
 
 class PostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())

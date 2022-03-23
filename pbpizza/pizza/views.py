@@ -5,10 +5,9 @@ from django.utils import timezone
 from django.views import View
 from django.contrib import messages
 from django.views.generic import ListView
-
-from .forms import UserRegisterForm, UserLoginForm, CouponForm
-from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
+from .forms import *
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
@@ -79,6 +78,9 @@ class Cart(LoginRequiredMixin, View):
             order = Order.objects.get(user=self.request.user, ordered=False)
             context = {
                 'order': order,
+                'couponform': CouponForm(),
+                'order': order,
+                'DISPLAY_COUPON_FORM': True
             }
             return render(self.request, 'pizza/cart.html', context)
         except ObjectDoesNotExist:
@@ -192,10 +194,9 @@ class AddCouponView(View):
                 order.coupon = get_coupon(self.request, code)
                 order.save()
                 messages.success(self.request, "Successfully added coupon")
-                return redirect("core:checkout")
             except ObjectDoesNotExist:
                 messages.info(self.request, "You do not have an active order")
-                return redirect("core:checkout")
+            return redirect("cart")
 
 def get_coupon(request, code):
     try:
@@ -203,4 +204,4 @@ def get_coupon(request, code):
         return coupon
     except ObjectDoesNotExist:
         messages.info(request, "This coupon does not exist")
-        return redirect("core:checkout")
+        return redirect("cart")
